@@ -1,6 +1,9 @@
 package com.stm.uid.controller;
 
+import com.stm.uid.domain.IDList;
+import com.stm.uid.repository.IDRegistryCacheRepo;
 import com.stm.uid.service.UniqueIdGenService;
+import com.stm.uid.task.LoadCacheTask;
 import com.stm.uid.util.IDType;
 import com.stm.uid.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,12 @@ import org.springframework.web.bind.annotation.*;
 public class IDController {
 
     private UniqueIdGenService uniqueIdGenService;
+
+    @Autowired
+    private IDRegistryCacheRepo idRegistryCacheRepo;
+
+    @Autowired
+    private LoadCacheTask loadCacheTask;
 
     @Autowired
     public IDController(UniqueIdGenService uniqueIdGenService) {
@@ -41,5 +50,15 @@ public class IDController {
         }
     }
 
+
+    @GetMapping("/load/test")
+    public void saveSampleInCache() {
+        loadCacheTask.loadCache();
+    }
+
+    @GetMapping("/test/cache")
+    public @ResponseBody IDList getIDsSample() {
+        return idRegistryCacheRepo.findById("12345").get();
+    }
 
 }

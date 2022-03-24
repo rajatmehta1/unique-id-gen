@@ -1,0 +1,15 @@
+1. Create unique ids by different ways
+   including UUID or through Snowflake Approach
+
+2. Make the ids availabel through rest service.
+   Rest first checks for ids available in cache
+   and later generates them.
+   Delete the id from cache after pulling it up.
+
+3. Populate them in a Cache in Redis
+
+4. Make sure 1000 ids availabe in cache
+
+5. Schedule and run task scheduler to populate cache
+   to capacity at regular intervals
+
